@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        let userChoice;
+        let computerChoice;
+        let userScore = 0;
+        let computerScore = 0;
+        const maxScore = 5;
+        const choices = [{name: 'rock', win: 'scissors'},
+                        {name: 'scissors', win: 'paper'},
+                        {name: 'paper', win: 'rock'}];
+
+        function computerPlay() {
+            let index = Math.round(Math.random() * 2);
+            console.log(index);
+            return choices[index];
+        }
+
+        function userPlay() {
+            let choice;
+            do {
+                choice = prompt("Write down your choice (Rock, scissors or paper)");
+                choice = choice.toLowerCase();
+                choice = choice.split(' ').join('');
+                for (let c of choices) {
+                    if(c.name === choice) {
+                        return c;
+                    }
+                }
+            } while (true);
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            let result;
+            if (playerSelection.win === computerSelection.name) {
+                result = `You won! ${playerSelection.name} beats ${computerSelection.name}`;
+                userScore++;
+            } else if (playerSelection.name === computerSelection.name) {
+                result = `Draw! You both selected ${playerSelection.name}`;
+            } else {
+                result = `You Lost! ${computerSelection.name} beats ${playerSelection.name}`;
+                computerScore++;
+            }
+            return result;
+        }
+
+        function game() {
+            let result;
+            while (userScore < maxScore && computerScore < maxScore) {
+                userChoice = userPlay();
+                computerChoice = computerPlay();
+                console.log(playRound(userChoice, computerChoice));
+            }
+            if (userScore > computerScore) {
+                result = `Congratulations! You won this game ${userScore} to ${computerScore}`;
+            } else {
+                result = `Maybe next time! You lost this game ${userScore} to ${computerScore}`;
+            }
+            return result;
+        }
+
+        console.log(game());
+
+    </script>
+</body>
+</html>
