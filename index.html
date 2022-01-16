@@ -3,69 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro|Yrsa|Press+Start+2P" rel="stylesheet">
+    <script src="js/scripts.js" defer></script>
+    <script src="js/confetti.js" defer></script>
 </head>
 <body>
-    <script>
-        let userChoice;
-        let computerChoice;
-        let userScore = 0;
-        let computerScore = 0;
-        const maxScore = 5;
-        const choices = [{name: 'rock', win: 'scissors'},
-                        {name: 'scissors', win: 'paper'},
-                        {name: 'paper', win: 'rock'}];
-
-        function computerPlay() {
-            let index = Math.round(Math.random() * 2);
-            console.log(index);
-            return choices[index];
-        }
-
-        function userPlay() {
-            let choice;
-            do {
-                choice = prompt("Write down your choice (Rock, scissors or paper)");
-                choice = choice.toLowerCase();
-                choice = choice.split(' ').join('');
-                for (let c of choices) {
-                    if(c.name === choice) {
-                        return c;
-                    }
-                }
-            } while (true);
-        }
-
-        function playRound(playerSelection, computerSelection) {
-            let result;
-            if (playerSelection.win === computerSelection.name) {
-                result = `You won! ${playerSelection.name} beats ${computerSelection.name}`;
-                userScore++;
-            } else if (playerSelection.name === computerSelection.name) {
-                result = `Draw! You both selected ${playerSelection.name}`;
-            } else {
-                result = `You Lost! ${computerSelection.name} beats ${playerSelection.name}`;
-                computerScore++;
-            }
-            return result;
-        }
-
-        function game() {
-            let result;
-            while (userScore < maxScore && computerScore < maxScore) {
-                userChoice = userPlay();
-                computerChoice = computerPlay();
-                console.log(playRound(userChoice, computerChoice));
-            }
-            if (userScore > computerScore) {
-                result = `Congratulations! You won this game ${userScore} to ${computerScore}`;
-            } else {
-                result = `Maybe next time! You lost this game ${userScore} to ${computerScore}`;
-            }
-            return result;
-        }
-
-        console.log(game());
-
-    </script>
+    <div id="score-container">
+        <div id="user-heart-container" class="heart-container"></div>
+        <div id="computer-heart-container" class="heart-container"></div>
+    </div>
+    <div id="hands-container">
+        <div class="hands">
+            <img id="user-hand" src="assets/rock-user.png" alt="You">
+        </div>
+        <h1>V<span class="text-white">S</span></h1>
+        <div class="hands">
+            <img id="computer-hand" src="assets/rock-computer.png" alt="Computer">
+        </div>
+    </div>
+    <div id="button-container">
+        <button class="btn-options" data-key="rock"><span class="text-white-black">Ro</span>ck</button>
+        <button class="btn-options" data-key="paper"><span class="text-white">Pa</span>per</button>
+        <button class="btn-options" data-key="scissors"><span class="text-white-black">Scis</span>sors</button>
+    </div>
+    <div id="end-game-blocker">
+        <div id="end-game-menu">
+            <img id="end-game-image" src="">
+            <p id="result"></p>
+            <button id="reset-game">New game</button>
+        </div>
+    </div>
+    <footer>By Bryan343</footer>
 </body>
 </html>
